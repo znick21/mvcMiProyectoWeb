@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using mvcProyectoWeb.Models;
 
 namespace mvcMiProyectoWeb.Data
 {
@@ -9,5 +10,8 @@ namespace mvcMiProyectoWeb.Data
 			: base(options)
 		{
 		}
+
+		//aqui los modelos que se vayan creando 
+		public DbSet<Almacen> Almacen { get; set; }
 	}
 }

@@ -1,18 +1,37 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using mvcMiProyectoWeb.Data;
+using mvcProyectoWeb.AccesoDatos.Data.Repository;
+using mvcProyectoWeb.AccesoDatos.Data.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//// Add services to the container.
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//	options.UseSqlServer(connectionString));
+//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//	.AddEntityFrameworkStores<ApplicationDbContext>();
+//builder.Services.AddControllersWithViews();
+
+//var app = builder.Build();
+
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = 
+builder.Configuration.GetConnectionString("ConexionSQL") ?? throw new 
+InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-	options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-	.AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+//agregar contenedor de trabajo al contenedos IoC de inyeccion de dependencias
+builder.Services.AddScoped<IContenedorTrabajo, ContenedorTrabajo>();
 
 var app = builder.Build();
 
